@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "user": "alice@example.com",
+        "restaurant": "O Crepuscule",
+        "note": 5,
+        "commentaire": "Excellent !"
+    }
+]
