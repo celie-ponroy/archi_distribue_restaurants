@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    ports:
+      - "27018:27018"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=archiDistriRestaurants
+
+volumes:
+  mongo_data:
