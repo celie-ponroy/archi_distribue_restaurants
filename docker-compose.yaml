@@ -1,12 +1,13 @@
 services:
   mongo:
     image: mongo:6
-    container_name: mongo
+    container_name: mongocaca
     restart: always
     ports:
-      - "27018:27018"
+      - "27017:27017"
     volumes:
       - mongo_data:/data/db
+      - ./data:/docker-entrypoint-initdb.d
     environment:
       - MONGO_INITDB_DATABASE=archiDistriRestaurants
 
