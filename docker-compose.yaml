@@ -1,13 +1,28 @@
 services:
+  web:
+    build:
+      context: ./user
+    container_name: php_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./user:/var/www/html:cached
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - MONGO_DB=archiDistriRestaurants
+
   mongo:
     image: mongo:6
     container_name: mongo
-    restart: always
+    restart: unless-stopped
     ports:
       - "27018:27017"
     volumes:
       - mongo_data:/data/db
-      - ./data:/docker-entrypoint-initdb.d
+      - ./data:/docker-entrypoint-initdb.d:ro
     environment:
       - MONGO_INITDB_DATABASE=archiDistriRestaurants
 

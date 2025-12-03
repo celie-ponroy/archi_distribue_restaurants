@@ -1,0 +1,10 @@
+# This repository is primarily a PHP project.
+# PHP dependencies should be declared with Composer (composer.json) and installed with `composer install`.
+#
+# This requirements.txt is provided only for developer tooling that may use Python (optional).
+# If you need Python packages for scripts/tools, uncomment and adjust the lines below and run:
+#   pip install -r requirements.txt
+#
+# Example (optional Python tooling):
+# requests==2.31.0
+# python-dotenv==1.0.0
