@@ -1,6 +1,6 @@
 <?php
 require_once 'jwt_utils.php';
-require_once 'connection_bd.php';
+require_once 'connectionbd.php';
 require_once 'function.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -13,11 +13,12 @@ switch ($method) {
             deliver_response(401, "Vous n'avez pas fourni de token");
             exit;
         }
-        $token = get_bearer_token();
-        $secret = 'coucou_je_suis_secret';
+
+        // secret configurable via variable d'environnement
+        $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
 
         // Vérifie la validité du token
-        if ($token && is_jwt_valid($token, $secret)) {
+        if (is_jwt_valid($token, $secret)) {
             deliver_response(200, 'Token valide.');
         } else {
             deliver_response(401, 'Token invalide.');
@@ -29,19 +30,27 @@ switch ($method) {
         if (isset($input['login']) && isset($input['mdp'])) {
             $login = $input['login'];
             $mdp = $input['mdp'];
-            $cle = "quoicoubeh";
+
+            if ($login === '' || $mdp === '') {
+                deliver_response(400, 'Identifiant ou mot de passe vide');
+                exit;
+            }
+
+            // clé de hachage configurable
+            $cle = getenv('PWD_KEY') ?: 'quoicoubeh';
             $mdp_hache = hash_hmac('sha256', $mdp, $cle);
 
             try {
-                $pdo = connectionToDB();
+                // connectionToDB() retourne ['manager' => Manager, 'db' => 'dbname']
+                $conn = connectionToDB();
 
                 // Vérifie si l'utilisateur existe
-                if (!check_user_exists($pdo, $login)) {
+                if (!check_user_exists($conn, $login)) {
                     deliver_response(404, 'Utilisateur non trouvé.');
                     exit;
                 }
 
-                $user = getUser($pdo, $login);
+                $user = getUser($conn, $login);
 
                 // Vérifie si le mot de passe est correct
                 if (!$user || $mdp_hache !== $user['mdp']) {
@@ -52,7 +61,7 @@ switch ($method) {
                 // Génération du token JWT pour l'utilisateur authentifié
                 $headers = ['alg' => 'HS256', 'typ' => 'JWT'];
                 $payload = ['login' => $login, 'exp' => (time() + 86400)];
-                $secret = 'coucou_je_suis_secret';
+                $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
 
                 $jwt = generate_jwt($headers, $payload, $secret);
 
@@ -62,7 +71,7 @@ switch ($method) {
                 error_log("Erreur serveur: " . $e->getMessage());
                 deliver_response(500, 'Erreur serveur.');
             }
-        }else{
+        } else {
             deliver_response(400, 'Identifiant ou mot de passe manquant');
         }
         break;
