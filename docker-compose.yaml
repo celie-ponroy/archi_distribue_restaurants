@@ -8,6 +8,7 @@ services:
     volumes:
       - ./user:/var/www/html:cached
     depends_on:
+<<<<<<< HEAD
       - mongo_database
     environment:
       - MONGO_HOST=mongo_database
@@ -17,6 +18,17 @@ services:
   mongo_database:
     image: mongo:6
     container_name: mongo_database
+=======
+      - mongo
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - MONGO_DB=archiDistriRestaurants
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+>>>>>>> 5e5ec9e03094316b728794fabadef7886e83f63d
     restart: unless-stopped
     ports:
       - "27018:27017"
