@@ -26,7 +26,7 @@ function createUser($conn, $login, $mdp_hache) {
     $user = ['login' => $login, 'mdp' => $mdp_hache];
     $bulk->insert($user);
 
-    $namespace = $db . '.utilisateurs';
+    $namespace = $db . '.user';
 
     try {
         $manager->executeBulkWrite($namespace, $bulk);
@@ -45,7 +45,7 @@ function getUser($conn, $login) {
     $options = ['limit' => 1];
 
     $query = new MongoDB\Driver\Query($filter, $options);
-    $namespace = $db . '.utilisateurs';
+    $namespace = $db . '.user';
 
     $rows = $manager->executeQuery($namespace, $query);
     $result = current($rows->toArray());
@@ -69,7 +69,7 @@ function check_user_exists($conn, $login) {
     $options = ['limit' => 1, 'projection' => ['_id' => 1]];
 
     $query = new MongoDB\Driver\Query($filter, $options);
-    $namespace = $db . '.utilisateurs';
+    $namespace = $db . '.user';
 
     $rows = $manager->executeQuery($namespace, $query);
     $arr = $rows->toArray();
@@ -84,13 +84,12 @@ function create_user($conn, $login, $mdp_hache) {
     $bulk = new MongoDB\Driver\BulkWrite();
     $doc = [
         'login' => $login,
-        'mdp' => $mdp_hache,
-        'created_at' => new MongoDB\BSON\UTCDateTime()
-    ];
+        'mdp' => $mdp_hache
+        ];
 
     $insertedId = $bulk->insert($doc);
     try {
-        $result = $manager->executeBulkWrite($db . '.utilisateurs', $bulk);
+        $result = $manager->executeBulkWrite($db . '.user', $bulk);
         return $insertedId; // BSON\ObjectId ou valeur insérée
     } catch (MongoDB\Driver\Exception\BulkWriteException $e) {
         // Duplicate key or write error

@@ -1,6 +1,6 @@
 <?php
 function connectionToDB() {
-    $host = getenv('MONGO_HOST') ?: 'mongo';
+    $host = getenv('MONGO_HOST') ?: 'mongo_database';
     $port = getenv('MONGO_PORT') ?: '27017';
     $db   = getenv('MONGO_DB') ?: 'archiDistriRestaurants';
     $uri  = getenv('MONGO_URI') ?: "mongodb://{$host}:{$port}";

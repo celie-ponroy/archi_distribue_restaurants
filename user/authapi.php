@@ -16,6 +16,7 @@ switch ($method) {
 
         // secret configurable via variable d'environnement
         $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
+        $token = get_bearer_token();
 
         // Vérifie la validité du token
         if (is_jwt_valid($token, $secret)) {
@@ -38,8 +39,8 @@ switch ($method) {
 
             // clé de hachage configurable
             $cle = getenv('PWD_KEY') ?: 'quoicoubeh';
-            $mdp_hache = hash_hmac('sha256', $mdp, $cle);
-
+            //$mdp_hache = hash_hmac('sha256', $mdp, $cle);
+            $mdp_hache = $mdp;
             try {
                 // connectionToDB() retourne ['manager' => Manager, 'db' => 'dbname']
                 $conn = connectionToDB();
@@ -69,7 +70,7 @@ switch ($method) {
                 deliver_response(200, 'OK', ['token' => $jwt]);
             } catch (Exception $e) {
                 error_log("Erreur serveur: " . $e->getMessage());
-                deliver_response(500, 'Erreur serveur.');
+                deliver_response(500,$e->getMessage());
             }
         } else {
             deliver_response(400, 'Identifiant ou mot de passe manquant');
