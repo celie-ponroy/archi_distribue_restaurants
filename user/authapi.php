@@ -42,13 +42,10 @@ switch ($method) {
 
             // clé de hachage configurable
             $cle = getenv('PWD_KEY') ?: 'quoicoubeh';
-<<<<<<< HEAD
+
             //$mdp_hache = hash_hmac('sha256', $mdp, $cle);
             $mdp_hache = $mdp;
-=======
-            $mdp_hache = hash_hmac('sha256', $mdp, $cle);
 
->>>>>>> 5e5ec9e03094316b728794fabadef7886e83f63d
             try {
                 // connectionToDB() retourne ['manager' => Manager, 'db' => 'dbname']
                 $conn = connectionToDB();
