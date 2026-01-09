@@ -1,7 +1,12 @@
 [
     {
         "id": 1,
+<<<<<<< HEAD
         "login": "Alice",
         "mdp":"alice123"
+=======
+        "name": "Alice",
+        "password":"alice123"
+>>>>>>> 6c011fd (tiens)
     }
 ]
