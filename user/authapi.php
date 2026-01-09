@@ -16,10 +16,7 @@ switch ($method) {
 
         // secret configurable via variable d'environnement
         $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
-<<<<<<< HEAD
         $token = get_bearer_token();
-=======
->>>>>>> 5e5ec9e03094316b728794fabadef7886e83f63d
 
         // Vérifie la validité du token
         if (is_jwt_valid($token, $secret)) {
