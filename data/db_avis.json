@@ -1,8 +1,8 @@
 [
     {
-        "id": 1,
         "user": "alice@example.com",
         "restaurant": "O Crepuscule",
+        "id_restaurant": 56,
         "note": 5,
         "commentaire": "Excellent !"
     }
