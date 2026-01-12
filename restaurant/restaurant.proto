@@ -3,28 +3,81 @@ syntax = "proto3";
 package restaurant;
 
 service RestaurantService {
-  rpc GetAllRestaurants (Empty) returns (RestaurantList);
-  rpc GetRestaurantByCity (CityRequest) returns (RestaurantList);
-  rpc GetRestaurantByName (NameRequest) returns (RestaurantList);
+  // Recherches par identifiant ou nom (Unique ou Liste)
+  rpc GetRestaurantDetails (SearchRequest) returns (Restaurant);
+  
+  // Recherches par critères (Listes)
+  rpc SearchByName (SearchRequest) returns (RestaurantList);
+  rpc SearchByType (TypeRequest) returns (RestaurantList);
+  rpc SearchByCategorie (CategorieRequest) returns (RestaurantList);
+  rpc SearchByLocation (LocationRequest) returns (RestaurantList);
+  rpc SearchByContact (ContactRequest) returns (RestaurantList);
+  rpc SearchByCapacity (CapacityRequest) returns (RestaurantList);
+  rpc SearchByStatus (StatusRequest) returns (RestaurantList);
 }
 
-message Empty {}
-
-message CityRequest {
-  string city = 1;
-}
-
-message NameRequest {
-  string name = 1;
+message Restaurant {
+  string id = 1;
+  string name = 2;
+  string type_offre = 3;
+  string categorie = 4;
+  string full_address = 5;
+  string code_postal = 6;
+  string commune = 7;
+  string departement = 8;
+  string tel_mobile = 9;
+  string tel_fixe = 10;
+  string fax = 11;
+  string email = 12;
+  string site_web = 13;
+  string video_url = 14;
+  string label_logis = 15;
+  string handicap = 16;
+  string animal_accepte = 17;
+  string labels = 18;
+  string services = 19;
+  int32 nb_max_couverts = 20;
+  int32 nb_salles = 21;
+  int32 nb_terrasse = 22;
+  int32 nb_reunion = 23;
+  int32 nb_climatisees = 24;
+  string ouvert_annee = 25;
+  string horaires = 26;
+  string tarifs = 27;
+  string modes_paiement = 28;
 }
 
 message RestaurantList {
   repeated Restaurant restaurants = 1;
+  string error_message = 2;
 }
 
-message Restaurant {
-  string name = 1;
-  string address = 2;
-  string city = 3;
-  string type = 4;
+message SearchRequest {
+  string query = 1; // Peut être l'ID ou le Nom
+}
+
+message TypeRequest {
+  int32 type_index = 1; // 1 à 6
+}
+
+message CategorieRequest {
+  int32 cat_index = 1; // 1 à 17
+}
+
+message LocationRequest {
+  string value = 1; // CP, Ville ou Département
+}
+
+message ContactRequest {
+  string value = 1; // Tel ou Email
+}
+
+message CapacityRequest {
+  int32 value = 1;
+  bool search_min = 2; // True pour "au moins", False pour "au plus"
+  string field_type = 3; // "couverts", "salles", "terrasse", "reunion", "clim"
+}
+
+message StatusRequest {
+  string ouvert = 1; // "oui" ou "non"
 }
