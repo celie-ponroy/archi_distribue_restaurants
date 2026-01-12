@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import restaurant_pb2 as restaurant__pb2
+from restaurant import restaurant_pb2 as restaurant_dot_restaurant__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in restaurant_pb2_grpc.py depends on'
+        + ' but the generated code in restaurant/restaurant_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -34,39 +34,96 @@ class RestaurantServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetAllRestaurants = channel.unary_unary(
-                '/restaurant.RestaurantService/GetAllRestaurants',
-                request_serializer=restaurant__pb2.Empty.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+        self.GetRestaurantDetails = channel.unary_unary(
+                '/restaurant.RestaurantService/GetRestaurantDetails',
+                request_serializer=restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.Restaurant.FromString,
                 _registered_method=True)
-        self.GetRestaurantByCity = channel.unary_unary(
-                '/restaurant.RestaurantService/GetRestaurantByCity',
-                request_serializer=restaurant__pb2.CityRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+        self.SearchByName = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByName',
+                request_serializer=restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
-        self.GetRestaurantByName = channel.unary_unary(
-                '/restaurant.RestaurantService/GetRestaurantByName',
-                request_serializer=restaurant__pb2.NameRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+        self.SearchByType = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByType',
+                request_serializer=restaurant_dot_restaurant__pb2.TypeRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+                _registered_method=True)
+        self.SearchByCategorie = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByCategorie',
+                request_serializer=restaurant_dot_restaurant__pb2.CategorieRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+                _registered_method=True)
+        self.SearchByLocation = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByLocation',
+                request_serializer=restaurant_dot_restaurant__pb2.LocationRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+                _registered_method=True)
+        self.SearchByContact = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByContact',
+                request_serializer=restaurant_dot_restaurant__pb2.ContactRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+                _registered_method=True)
+        self.SearchByCapacity = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByCapacity',
+                request_serializer=restaurant_dot_restaurant__pb2.CapacityRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+                _registered_method=True)
+        self.SearchByStatus = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchByStatus',
+                request_serializer=restaurant_dot_restaurant__pb2.StatusRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
 
 
 class RestaurantServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetAllRestaurants(self, request, context):
+    def GetRestaurantDetails(self, request, context):
+        """Recherches par identifiant ou nom (Unique ou Liste)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SearchByName(self, request, context):
+        """Recherches par critères (Listes)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SearchByType(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetRestaurantByCity(self, request, context):
+    def SearchByCategorie(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetRestaurantByName(self, request, context):
+    def SearchByLocation(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SearchByContact(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SearchByCapacity(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SearchByStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -75,20 +132,45 @@ class RestaurantServiceServicer(object):
 
 def add_RestaurantServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetAllRestaurants': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAllRestaurants,
-                    request_deserializer=restaurant__pb2.Empty.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+            'GetRestaurantDetails': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRestaurantDetails,
+                    request_deserializer=restaurant_dot_restaurant__pb2.SearchRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.Restaurant.SerializeToString,
             ),
-            'GetRestaurantByCity': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetRestaurantByCity,
-                    request_deserializer=restaurant__pb2.CityRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+            'SearchByName': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByName,
+                    request_deserializer=restaurant_dot_restaurant__pb2.SearchRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
-            'GetRestaurantByName': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetRestaurantByName,
-                    request_deserializer=restaurant__pb2.NameRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+            'SearchByType': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByType,
+                    request_deserializer=restaurant_dot_restaurant__pb2.TypeRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
+            ),
+            'SearchByCategorie': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByCategorie,
+                    request_deserializer=restaurant_dot_restaurant__pb2.CategorieRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
+            ),
+            'SearchByLocation': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByLocation,
+                    request_deserializer=restaurant_dot_restaurant__pb2.LocationRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
+            ),
+            'SearchByContact': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByContact,
+                    request_deserializer=restaurant_dot_restaurant__pb2.ContactRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
+            ),
+            'SearchByCapacity': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByCapacity,
+                    request_deserializer=restaurant_dot_restaurant__pb2.CapacityRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
+            ),
+            'SearchByStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchByStatus,
+                    request_deserializer=restaurant_dot_restaurant__pb2.StatusRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -102,7 +184,7 @@ class RestaurantService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetAllRestaurants(request,
+    def GetRestaurantDetails(request,
             target,
             options=(),
             channel_credentials=None,
@@ -115,9 +197,9 @@ class RestaurantService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/restaurant.RestaurantService/GetAllRestaurants',
-            restaurant__pb2.Empty.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            '/restaurant.RestaurantService/GetRestaurantDetails',
+            restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.Restaurant.FromString,
             options,
             channel_credentials,
             insecure,
@@ -129,7 +211,7 @@ class RestaurantService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetRestaurantByCity(request,
+    def SearchByName(request,
             target,
             options=(),
             channel_credentials=None,
@@ -142,9 +224,9 @@ class RestaurantService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/restaurant.RestaurantService/GetRestaurantByCity',
-            restaurant__pb2.CityRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            '/restaurant.RestaurantService/SearchByName',
+            restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -156,7 +238,7 @@ class RestaurantService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetRestaurantByName(request,
+    def SearchByType(request,
             target,
             options=(),
             channel_credentials=None,
@@ -169,9 +251,144 @@ class RestaurantService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/restaurant.RestaurantService/GetRestaurantByName',
-            restaurant__pb2.NameRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            '/restaurant.RestaurantService/SearchByType',
+            restaurant_dot_restaurant__pb2.TypeRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SearchByCategorie(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/restaurant.RestaurantService/SearchByCategorie',
+            restaurant_dot_restaurant__pb2.CategorieRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SearchByLocation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/restaurant.RestaurantService/SearchByLocation',
+            restaurant_dot_restaurant__pb2.LocationRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SearchByContact(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/restaurant.RestaurantService/SearchByContact',
+            restaurant_dot_restaurant__pb2.ContactRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SearchByCapacity(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/restaurant.RestaurantService/SearchByCapacity',
+            restaurant_dot_restaurant__pb2.CapacityRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SearchByStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/restaurant.RestaurantService/SearchByStatus',
+            restaurant_dot_restaurant__pb2.StatusRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
