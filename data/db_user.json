@@ -2,6 +2,8 @@
     {
         "id": 1,
         "login": "Alice",
-        "mdp":"alice123"
+        "mdp":"alice123",
+        "name": "Alice",
+        "email": "alice@example.com"
     }
 ]
