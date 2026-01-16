@@ -75,15 +75,13 @@ class RestaurantServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def SearchByName(self, request, context):
-        """Recherche globale par Nom ou ID
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SearchByType(self, request, context):
-        """Recherches par critères spécifiques
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
