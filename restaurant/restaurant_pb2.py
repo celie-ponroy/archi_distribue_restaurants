@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1brestaurant/restaurant.proto\x12\nrestaurant\"\xa3\x04\n\nRestaurant\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\ntype_offre\x18\x03 \x01(\t\x12\x11\n\tcategorie\x18\x04 \x01(\t\x12\x14\n\x0c\x66ull_address\x18\x05 \x01(\t\x12\x13\n\x0b\x63ode_postal\x18\x06 \x01(\t\x12\x0f\n\x07\x63ommune\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65partement\x18\x08 \x01(\t\x12\x12\n\ntel_mobile\x18\t \x01(\t\x12\x10\n\x08tel_fixe\x18\n \x01(\t\x12\x0b\n\x03\x66\x61x\x18\x0b \x01(\t\x12\r\n\x05\x65mail\x18\x0c \x01(\t\x12\x10\n\x08site_web\x18\r \x01(\t\x12\x11\n\tvideo_url\x18\x0e \x01(\t\x12\x13\n\x0blabel_logis\x18\x0f \x01(\t\x12\x10\n\x08handicap\x18\x10 \x01(\t\x12\x16\n\x0e\x61nimal_accepte\x18\x11 \x01(\t\x12\x0e\n\x06labels\x18\x12 \x01(\t\x12\x10\n\x08services\x18\x13 \x01(\t\x12\x17\n\x0fnb_max_couverts\x18\x14 \x01(\x05\x12\x11\n\tnb_salles\x18\x15 \x01(\x05\x12\x13\n\x0bnb_terrasse\x18\x16 \x01(\x05\x12\x12\n\nnb_reunion\x18\x17 \x01(\x05\x12\x16\n\x0enb_climatisees\x18\x18 \x01(\x05\x12\x14\n\x0couvert_annee\x18\x19 \x01(\t\x12\x10\n\x08horaires\x18\x1a \x01(\t\x12\x0e\n\x06tarifs\x18\x1b \x01(\t\x12\x16\n\x0emodes_paiement\x18\x1c \x01(\t\"T\n\x0eRestaurantList\x12+\n\x0brestaurants\x18\x01 \x03(\x0b\x32\x16.restaurant.Restaurant\x12\x15\n\rerror_message\x18\x02 \x01(\t\"\x1e\n\rSearchRequest\x12\r\n\x05query\x18\x01 \x01(\t\"!\n\x0bTypeRequest\x12\x12\n\ntype_index\x18\x01 \x01(\x05\"%\n\x10\x43\x61tegorieRequest\x12\x11\n\tcat_index\x18\x01 \x01(\x05\" \n\x0fLocationRequest\x12\r\n\x05value\x18\x01 \x01(\t\"\x1f\n\x0e\x43ontactRequest\x12\r\n\x05value\x18\x01 \x01(\t\"H\n\x0f\x43\x61pacityRequest\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x12\n\nsearch_min\x18\x02 \x01(\x08\x12\x12\n\nfield_type\x18\x03 \x01(\t\"\x1f\n\rStatusRequest\x12\x0e\n\x06ouvert\x18\x01 \x01(\t2\xe7\x04\n\x11RestaurantService\x12I\n\x14GetRestaurantDetails\x12\x19.restaurant.SearchRequest\x1a\x16.restaurant.Restaurant\x12\x45\n\x0cSearchByName\x12\x19.restaurant.SearchRequest\x1a\x1a.restaurant.RestaurantList\x12\x43\n\x0cSearchByType\x12\x17.restaurant.TypeRequest\x1a\x1a.restaurant.RestaurantList\x12M\n\x11SearchByCategorie\x12\x1c.restaurant.CategorieRequest\x1a\x1a.restaurant.RestaurantList\x12K\n\x10SearchByLocation\x12\x1b.restaurant.LocationRequest\x1a\x1a.restaurant.RestaurantList\x12I\n\x0fSearchByContact\x12\x1a.restaurant.ContactRequest\x1a\x1a.restaurant.RestaurantList\x12K\n\x10SearchByCapacity\x12\x1b.restaurant.CapacityRequest\x1a\x1a.restaurant.RestaurantList\x12G\n\x0eSearchByStatus\x12\x19.restaurant.StatusRequest\x1a\x1a.restaurant.RestaurantListb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1brestaurant/restaurant.proto\x12\nrestaurant\"\xa3\x04\n\nRestaurant\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\ntype_offre\x18\x03 \x01(\t\x12\x11\n\tcategorie\x18\x04 \x01(\t\x12\x14\n\x0c\x66ull_address\x18\x05 \x01(\t\x12\x13\n\x0b\x63ode_postal\x18\x06 \x01(\t\x12\x0f\n\x07\x63ommune\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65partement\x18\x08 \x01(\t\x12\x12\n\ntel_mobile\x18\t \x01(\t\x12\x10\n\x08tel_fixe\x18\n \x01(\t\x12\x0b\n\x03\x66\x61x\x18\x0b \x01(\t\x12\r\n\x05\x65mail\x18\x0c \x01(\t\x12\x10\n\x08site_web\x18\r \x01(\t\x12\x11\n\tvideo_url\x18\x0e \x01(\t\x12\x13\n\x0blabel_logis\x18\x0f \x01(\t\x12\x10\n\x08handicap\x18\x10 \x01(\t\x12\x16\n\x0e\x61nimal_accepte\x18\x11 \x01(\t\x12\x0e\n\x06labels\x18\x12 \x01(\t\x12\x10\n\x08services\x18\x13 \x01(\t\x12\x17\n\x0fnb_max_couverts\x18\x14 \x01(\x05\x12\x11\n\tnb_salles\x18\x15 \x01(\x05\x12\x13\n\x0bnb_terrasse\x18\x16 \x01(\x05\x12\x12\n\nnb_reunion\x18\x17 \x01(\x05\x12\x16\n\x0enb_climatisees\x18\x18 \x01(\x05\x12\x14\n\x0couvert_annee\x18\x19 \x01(\t\x12\x10\n\x08horaires\x18\x1a \x01(\t\x12\x0e\n\x06tarifs\x18\x1b \x01(\t\x12\x16\n\x0emodes_paiement\x18\x1c \x01(\t\"T\n\x0eRestaurantList\x12+\n\x0brestaurants\x18\x01 \x03(\x0b\x32\x16.restaurant.Restaurant\x12\x15\n\rerror_message\x18\x02 \x01(\t\"\x1e\n\rSearchRequest\x12\r\n\x05query\x18\x01 \x01(\t\"0\n\x0bTypeRequest\x12\x12\n\ntype_index\x18\x01 \x01(\x05\x12\r\n\x05query\x18\x02 \x01(\t\"4\n\x10\x43\x61tegorieRequest\x12\x11\n\tcat_index\x18\x01 \x01(\x05\x12\r\n\x05query\x18\x02 \x01(\t\"/\n\x0fLocationRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\r\n\x05query\x18\x02 \x01(\t\"B\n\x0e\x43ontactRequest\x12\r\n\x05value\x18\x01 \x01(\t\x12\r\n\x05query\x18\x02 \x01(\t\x12\x12\n\nfield_type\x18\x03 \x01(\t\"W\n\x0f\x43\x61pacityRequest\x12\r\n\x05value\x18\x01 \x01(\x05\x12\x12\n\nsearch_min\x18\x02 \x01(\x08\x12\x12\n\nfield_type\x18\x03 \x01(\t\x12\r\n\x05query\x18\x04 \x01(\t\".\n\rStatusRequest\x12\x0e\n\x06ouvert\x18\x01 \x01(\t\x12\r\n\x05query\x18\x02 \x01(\t2\x9c\x04\n\x11RestaurantService\x12\x45\n\x0cSearchByName\x12\x19.restaurant.SearchRequest\x1a\x1a.restaurant.RestaurantList\x12\x43\n\x0cSearchByType\x12\x17.restaurant.TypeRequest\x1a\x1a.restaurant.RestaurantList\x12M\n\x11SearchByCategorie\x12\x1c.restaurant.CategorieRequest\x1a\x1a.restaurant.RestaurantList\x12K\n\x10SearchByLocation\x12\x1b.restaurant.LocationRequest\x1a\x1a.restaurant.RestaurantList\x12I\n\x0fSearchByContact\x12\x1a.restaurant.ContactRequest\x1a\x1a.restaurant.RestaurantList\x12K\n\x10SearchByCapacity\x12\x1b.restaurant.CapacityRequest\x1a\x1a.restaurant.RestaurantList\x12G\n\x0eSearchByStatus\x12\x19.restaurant.StatusRequest\x1a\x1a.restaurant.RestaurantListb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -38,17 +38,17 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_SEARCHREQUEST']._serialized_start=679
   _globals['_SEARCHREQUEST']._serialized_end=709
   _globals['_TYPEREQUEST']._serialized_start=711
-  _globals['_TYPEREQUEST']._serialized_end=744
-  _globals['_CATEGORIEREQUEST']._serialized_start=746
-  _globals['_CATEGORIEREQUEST']._serialized_end=783
-  _globals['_LOCATIONREQUEST']._serialized_start=785
-  _globals['_LOCATIONREQUEST']._serialized_end=817
-  _globals['_CONTACTREQUEST']._serialized_start=819
-  _globals['_CONTACTREQUEST']._serialized_end=850
-  _globals['_CAPACITYREQUEST']._serialized_start=852
-  _globals['_CAPACITYREQUEST']._serialized_end=924
-  _globals['_STATUSREQUEST']._serialized_start=926
-  _globals['_STATUSREQUEST']._serialized_end=957
-  _globals['_RESTAURANTSERVICE']._serialized_start=960
-  _globals['_RESTAURANTSERVICE']._serialized_end=1575
+  _globals['_TYPEREQUEST']._serialized_end=759
+  _globals['_CATEGORIEREQUEST']._serialized_start=761
+  _globals['_CATEGORIEREQUEST']._serialized_end=813
+  _globals['_LOCATIONREQUEST']._serialized_start=815
+  _globals['_LOCATIONREQUEST']._serialized_end=862
+  _globals['_CONTACTREQUEST']._serialized_start=864
+  _globals['_CONTACTREQUEST']._serialized_end=930
+  _globals['_CAPACITYREQUEST']._serialized_start=932
+  _globals['_CAPACITYREQUEST']._serialized_end=1019
+  _globals['_STATUSREQUEST']._serialized_start=1021
+  _globals['_STATUSREQUEST']._serialized_end=1067
+  _globals['_RESTAURANTSERVICE']._serialized_start=1070
+  _globals['_RESTAURANTSERVICE']._serialized_end=1610
 # @@protoc_insertion_point(module_scope)
