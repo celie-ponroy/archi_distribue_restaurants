@@ -34,6 +34,7 @@ services:
       - USE_MONGO=true
       - MONGO_URL=mongodb://mongo_database:27017/archiDistriDB
       - USE_DOCKER=true
+    command: ["python", "restaurant.py"]
     depends_on:
       - mongo_database
     restart: unless-stopped

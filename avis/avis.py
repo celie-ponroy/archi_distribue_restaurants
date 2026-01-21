@@ -2,20 +2,20 @@ from ariadne import graphql_sync, make_executable_schema, load_schema_from_path,
 from flask import Flask, request, jsonify,make_response
 import resolvers as r
 
-type_defs = load_schema_from_path("avis/avis.graphql")
+type_defs = load_schema_from_path("avis.graphql")
 query = QueryType()
 mutation = MutationType()
 avis = ObjectType("Avis")
 
-query.set_field("getAllAvis", r.get_all_avis)
-query.set_field("getAvisById", r.get_avis_by_id)
-query.set_field("getAvisByRestaurant", r.get_avis_by_restaurant)
-query.set_field("getAvisByUser", r.get_avis_by_user)
-query.set_field("getAvisByRating", r.get_avis_by_rating)
+query.set_field("avis", r.get_avis_by_id)
+query.set_field("allAvis", r.get_all_avis)
+query.set_field("avisByRestaurant", r.get_avis_by_restaurant)
+query.set_field("avisByUser", r.get_avis_by_user)
+query.set_field("averageRateByRestaurant", r.get_average_rate_by_restaurant)
 
-mutation.set_field("updateAvis", r.update_avis)
-mutation.set_field("createAvis", r.create_avis)
-mutation.set_field("deleteAvis", r.delete_avis)
+mutation.set_field("update_avis", r.update_avis)
+mutation.set_field("create_avis", r.create_avis)
+mutation.set_field("delete_avis", r.delete_avis)
 
 schema = make_executable_schema(type_defs, query, mutation, avis)
 
