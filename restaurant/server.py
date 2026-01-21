@@ -24,7 +24,7 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
 
     def _load_data(self):
         print("Chargement des données...")
-        url = "https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=234400034_070-008_offre-touristique-restaurants-rpdl@paysdelaloire&rows=4000"
+        url = f"{BASE_URL}&rows=4000"
         try:
             r = requests.get(url).json()
             records = r.get("records", [])

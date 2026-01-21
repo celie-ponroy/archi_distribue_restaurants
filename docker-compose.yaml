@@ -39,7 +39,6 @@ services:
     restart: unless-stopped
 
 
-  
   mongo_database:
     image: mongodb/mongodb-community-server:7.0-ubi8 # Cette version inclut les outils d'import
     container_name: mongo_database
