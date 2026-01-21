@@ -16,27 +16,50 @@ function generate_jwt($headers, $payload, $secret) {
 function is_jwt_valid($jwt, $secret) {
     // Sépare les parties du token
     $tokenParts = explode('.', $jwt);
-    $header = base64_decode($tokenParts[0]);
-    $payload = base64_decode($tokenParts[1]);
+    if (count($tokenParts) !== 3) return false;
+
+    $header_b64 = $tokenParts[0];
+    $payload_b64 = $tokenParts[1];
     $signature_provided = $tokenParts[2];
 
-    // Vérifie l'expiration du token
-    $expiration = json_decode($payload)->exp;
-    $is_token_expired = ($expiration - time()) < 0;
+    // Decode payload to check expiration safely
+    $payload_json = base64url_decode($payload_b64);
+    $payload_obj = json_decode($payload_json);
+    if (!$payload_obj || !isset($payload_obj->exp)) return false;
+
+    $is_token_expired = ($payload_obj->exp - time()) < 0;
 
     // Regénère la signature et la compare avec celle fournie
-    $base64_url_header = base64url_encode($header);
-    $base64_url_payload = base64url_encode($payload);
-    $signature = hash_hmac('SHA256', "$base64_url_header.$base64_url_payload", $secret, true);
+    $signature = hash_hmac('SHA256', "$header_b64.$payload_b64", $secret, true);
     $base64_url_signature = base64url_encode($signature);
 
-    // Vérifie si le token est valide
     return !$is_token_expired && ($base64_url_signature === $signature_provided);
 }
 
 function base64url_encode($data) {
     // Encode en base64 et rend l'encodage URL-safe
     return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
+function base64url_decode($data) {
+    $remainder = strlen($data) % 4;
+    if ($remainder) {
+        $padlen = 4 - $remainder;
+        $data .= str_repeat('=', $padlen);
+    }
+    $decoded = base64_decode(strtr($data, '-_', '+/'));
+    return $decoded;
+}
+
+/**
+ * Decode a JWT and return the payload as associative array (or null on failure)
+ */
+function decode_jwt_payload($jwt) {
+    $parts = explode('.', $jwt);
+    if (count($parts) !== 3) return null;
+    $payload_json = base64url_decode($parts[1]);
+    $payload = json_decode($payload_json, true);
+    return $payload;
 }
 
 function get_authorization_header() {
@@ -62,4 +85,3 @@ function get_bearer_token() {
     return null;
 }
 
-?>

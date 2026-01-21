@@ -63,7 +63,7 @@ switch ($method) {
 
                 // Génération du token JWT pour l'utilisateur authentifié
                 $headers = ['alg' => 'HS256', 'typ' => 'JWT'];
-                $payload = ['login' => $login, 'exp' => (time() + 86400)];
+                $payload = ['login' => $login, 'admin' => (bool)($user['admin'] ?? false), 'exp' => (time() + 86400)];
                 $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
 
                 $jwt = generate_jwt($headers, $payload, $secret);
@@ -86,4 +86,3 @@ switch ($method) {
         deliver_response(405, 'Méthode non autorisée.');
         break;
 }
-?>

@@ -1,18 +1,15 @@
+from restaurant_client import get_restaurant_client
 from pymongo import MongoClient
 
-import grpc
-from restaurant import restaurant_pb2
-from restaurant import restaurant_pb2_grpc
+restaurant = get_restaurant_client()
 
-restaurant_api = 'localhost:50051'
-with grpc.insecure_channel(restaurant_api) as channel:
-        stub = restaurant_pb2_grpc.RestaurantServiceStub(channel)
+def _get_mongo_client():
+    global _client, _avis_collection
+    if _client is None:
+        _client = MongoClient("mongodb://mongo_database:27017/", serverSelectionTimeoutMS=5000)
+        _avis_collection = _client["archiDistriRestaurants"]["avis"]
+    return _avis_collection
 
-
-#bd avis
-client = MongoClient("mongodb://localhost:27017/")
-db = client["archiDistriRestaurants"]
-avis_collection = db["avis"]
 
 
 # restaurants proxy
@@ -20,38 +17,32 @@ avis_collection = db["avis"]
 
 
 # GET 
-def get_all_avis():
+def get_all_avis(_, info):
+    avis_collection = _get_mongo_client()
     return list(avis_collection.find())
 
 
-def get_avis_by_id(_,info,avis_id):
-    #todo
-    print("todo")
+def get_avis_by_id(_, info, _id):
+    pass
 
-def get_avis_by_restaurant(_,info,restaurant_id):
-    restaurant_pb2.SearchByName()
-    #todo
-    print("todo")
+def get_avis_by_restaurant(_, info, _restaurant_id):
+    pass
 
-def get_avis_by_user(_,info,user):
-    #todo
-    print("todo")
-def get_avis_by_rating(_,info,rating):
-    #todo
-    print("todo")
+def get_avis_by_user(_, info, _user_id):
+    pass
+
+def get_average_rate_by_restaurant(_, info, _restaurant_id):
+    pass
 
 
 #MODIFY
-def update_avis(_,info,avis_id, rating):
-    #todo
-    print("todo")
+def update_avis(_, info, _id, _rate):
+    pass
 
-def create_avis(_,info,restaurant_id, user, rating, comment):
-    #todo
-    print("todo")
+def create_avis(_, info, _restaurant_id, _user_id, _rate, _comment=None):
+    pass
 
 
 #DELETE
-def delete_avis(_,info,avis_id):
-    #todo
-    print("todo")
+def delete_avis(_, info, _id):
+    pass

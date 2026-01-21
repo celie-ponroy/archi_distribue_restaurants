@@ -9,14 +9,14 @@ type Query
 type Mutation
 {
     update_avis(_id: String!, _rate: Float!): Avis
-    create_avis(_restaurant_id: String!, _user_id: String!, _comment: String, _rate: Float!): Avis
+    create_avis(_restaurant_id: String!, _user_id: String!, _commentaire: String, _note: Float!): Avis
     delete_avis(_id: String!): Avis
 }
 
 type Avis{
     _id: String
-    _restaurant_id: String
+    _id_restaurant: String
     _user_id: String
-    _comment: String
-    _rate: Float
+    _commentaire: String
+    _note: Float
 }

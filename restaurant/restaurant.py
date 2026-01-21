@@ -4,8 +4,8 @@ import requests
 import re
 from unidecode import unidecode
 from difflib import SequenceMatcher
-from restaurant import restaurant_pb2
-from restaurant import restaurant_pb2_grpc
+import restaurant_pb2
+import restaurant_pb2_grpc
 
 DATASET = "234400034_070-008_offre-touristique-restaurants-rpdl@paysdelaloire"
 BASE_URL = f"https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=234400034_070-008_offre-touristique-restaurants-rpdl@paysdelaloire"
