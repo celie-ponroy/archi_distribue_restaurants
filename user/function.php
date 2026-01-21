@@ -23,7 +23,7 @@ function createUser($conn, $login, $mdp_hache) {
     $db = $conn['db'];
 
     $bulk = new MongoDB\Driver\BulkWrite;
-    $user = ['login' => $login, 'mdp' => $mdp_hache];
+    $user = ['login' => $login, 'mdp' => $mdp_hache, 'admin' => false];
     $bulk->insert($user);
 
     $namespace = $db . '.user';
@@ -55,6 +55,7 @@ function getUser($conn, $login) {
         return [
             'login' => $result->login ?? null,
             'mdp' => $result->mdp ?? null,
+            'admin' => isset($result->admin) ? (bool)$result->admin : false,
         ];
     }
     return null;
@@ -84,7 +85,8 @@ function create_user($conn, $login, $mdp_hache) {
     $bulk = new MongoDB\Driver\BulkWrite();
     $doc = [
         'login' => $login,
-        'mdp' => $mdp_hache
+        'mdp' => $mdp_hache,
+        'admin' => false
         ];
 
     $insertedId = $bulk->insert($doc);
@@ -98,4 +100,3 @@ function create_user($conn, $login, $mdp_hache) {
         return false;
     }
 }
-?>

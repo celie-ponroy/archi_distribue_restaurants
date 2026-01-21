@@ -1,7 +1,18 @@
-[
-    {
-        "id": 1,
-        "login": "Alice",
-        "mdp":"alice123"
-    }
-]
+[{
+    "_id": 1,
+    "login": "Arthur",
+    "mdp": "9b3bd052cfc5c6c364e10966f639af322ef580fc6189387c3d74ee31a869f62c",
+    "admin": false
+  },
+  {
+    "_id": 2,
+    "login": "Celie",
+    "mdp": "c64ddc2327d209dbf04f9f1552aa6082f3a9e995a32a2f9bd5ed2f5715d93a09",
+    "admin": true
+  },
+  {
+    "_id": 3,
+    "login": "Manon",
+    "mdp": "bed631fb0d264635e663e22952fdef5e61858229c411bef4cb01780edd89a4b1",
+    "admin": false
+  }] 
