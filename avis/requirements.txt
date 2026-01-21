@@ -3,3 +3,5 @@ grpcio-tools
 requests
 pymongo
 unidecode
+ariadne
+flask

@@ -1,0 +1,22 @@
+type Query
+{
+    avis(_id: String!): Avis
+    allAvis: [Avis]
+    avisByRestaurant(_restaurant_id: String!): [Avis]
+    avisByUser(_user_id: String!): [Avis]   
+    averageRateByRestaurant(_restaurant_id: String!): Float
+}
+type Mutation
+{
+    update_avis(_id: String!, _rate: Float!): Avis
+    create_avis(_restaurant_id: String!, _user_id: String!, _comment: String, _rate: Float!): Avis
+    delete_avis(_id: String!): Avis
+}
+
+type Avis{
+    _id: String
+    _restaurant_id: String
+    _user_id: String
+    _comment: String
+    _rate: Float
+}

@@ -1,3 +1,8 @@
+pour installer grpc :
+'python3 -m pip install grpc'
+'python3 -m pip install grpcio-tools'
+
+
 lancer docker :
 `docker compose up`
 

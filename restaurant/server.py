@@ -23,17 +23,17 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
         return re.sub(r'[^a-z0-9]', '', text)
 
     def _load_data(self):
-        print("📥 Chargement des données...")
+        print("Chargement des données...")
         url = "https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=234400034_070-008_offre-touristique-restaurants-rpdl@paysdelaloire&rows=4000"
         try:
             r = requests.get(url).json()
             records = r.get("records", [])
             
-            print(f"✅ Succès : {len(records)} restaurants ont été récupérés et chargés en mémoire.")
+            print(f"Succès : {len(records)} restaurants ont été récupérés et chargés en mémoire.")
             
             return [self._map_to_proto(item) for item in records]
         except Exception as e:
-            print(f"❌ Erreur lors du chargement : {e}")
+            print(f"Erreur lors du chargement : {e}")
             return []
 
     def _map_to_proto(self, item):
