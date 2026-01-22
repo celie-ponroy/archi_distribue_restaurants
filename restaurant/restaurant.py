@@ -24,7 +24,7 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
 
     def _load_data(self):
         print("Chargement des données...")
-        url = "https://data.nantesmetropole.fr/api/records/1.0/search/?dataset=234400034_070-008_offre-touristique-restaurants-rpdl@paysdelaloire&rows=4000"
+        url = f"{BASE_URL}&rows=4000"
         try:
             r = requests.get(url).json()
             records = r.get("records", [])
@@ -80,6 +80,9 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
             if q_norm in name_norm or r.id == query or SequenceMatcher(None, q_norm, name_norm).ratio() > 0.7:
                 results.append(r)
         return results
+
+    def SearchAll(self, context):
+        return restaurant_pb2.RestaurantList(restaurants=self.cache)
 
     def SearchByName(self, request, context):
         results = self._filter_by_query(self.cache, request.query)
