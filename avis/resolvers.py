@@ -24,7 +24,8 @@ def _get_mongo_client():
 
 # restaurants proxy
 # user proxy
-URL = "localhost:3001:8080"
+URL = "localhost:8080"
+
 
 
 # GET 
