@@ -7,7 +7,6 @@ query = QueryType()
 mutation = MutationType()
 avis = ObjectType("Avis")
 
-query.set_field("avis", r.get_avis_by_id)
 query.set_field("allAvis", r.get_all_avis)
 query.set_field("avisByRestaurant", r.get_avis_by_restaurant)
 query.set_field("avisByUser", r.get_avis_by_user)

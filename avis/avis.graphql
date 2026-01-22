@@ -1,22 +1,22 @@
 type Query
 {
-    avis(_id: String!): Avis
     allAvis: [Avis]
-    avisByRestaurant(_restaurant_id: String!): [Avis]
-    avisByUser(_user_id: String!): [Avis]   
-    averageRateByRestaurant(_restaurant_id: String!): Float
+    avisByRestaurant(restaurant_id: String!): [Avis]
+    avisByUser(user_id: String!): [Avis]   
+    averageRateByRestaurant(restaurant_id: String!): Float
 }
 type Mutation
 {
-    update_avis(_id: String!, _rate: Float!): Avis
-    create_avis(_restaurant_id: String!, _user_id: String!, _commentaire: String, _note: Float!): Avis
-    delete_avis(_id: String!): Avis
+    update_avis(id_avis: String!, note: Float!, commentaire:String!): Avis
+    create_avis(restaurant_id: String!, user_id: String!, commentaire: String, note: Float!): Avis
+    delete_avis(id: String!): Avis
 }
 
 type Avis{
     _id: String
-    _id_restaurant: String
-    _user_id: String
-    _commentaire: String
-    _note: Float
+    id_restaurant: String
+    nom_restaurant:String
+    user_id: String
+    commentaire: String
+    note: Float
 }

@@ -1,13 +1,21 @@
 from restaurant_client import get_restaurant_client
 from pymongo import MongoClient
+import statistics
+
 
 restaurant = get_restaurant_client()
-
+_client = None
+_avis_collection = None
 def _get_mongo_client():
     global _client, _avis_collection
     if _client is None:
-        _client = MongoClient("mongodb://mongo_database:27017/", serverSelectionTimeoutMS=5000)
-        _avis_collection = _client["archiDistriRestaurants"]["avis"]
+        try:
+            _client = MongoClient("mongodb://mongo_database:27017", serverSelectionTimeoutMS=5000)
+            _avis_collection = _client["archiDistriRestaurants"]["avis"]
+        except Exception:
+            _client = None
+            _avis_collection = None
+            raise Exception("Impossible de se connecter à la base de données.")
     return _avis_collection
 
 
@@ -22,27 +30,36 @@ def get_all_avis(_, info):
     return list(avis_collection.find())
 
 
-def get_avis_by_id(_, info, _id):
-    pass
+def get_avis_by_restaurant(_, info, restaurant_id):
+    _avis_collection = _get_mongo_client()
+    return list(_avis_collection.find({"id_restaurant": restaurant_id}))
 
-def get_avis_by_restaurant(_, info, _restaurant_id):
-    pass
+def get_avis_by_user(_, info, user_id):
+    _avis_collection = _get_mongo_client()
+    return list(_avis_collection.find({"user": user_id}))
 
-def get_avis_by_user(_, info, _user_id):
-    pass
-
-def get_average_rate_by_restaurant(_, info, _restaurant_id):
-    pass
-
+def get_average_rate_by_restaurant(_, restaurant_id):
+    _avis_collection = _get_mongo_client()
+    return statistics.mean([avis["note"] for avis in list(_avis_collection.find({"id_restaurant": restaurant_id}))])
 
 #MODIFY
-def update_avis(_, info, _id, _rate):
-    pass
+def update_avis(_, id, note,commentaire):
+    _avis_collection = _get_mongo_client()
+    return _avis_collection.update_one({_id:id},{
+        "note": note,
+        "commentaire": commentaire
+    })
 
-def create_avis(_, info, _restaurant_id, _user_id, _rate, _comment=None):
-    pass
+def create_avis(_, info, restaurant_id, user_id, note, commentaire=None):
+    _avis_collection = _get_mongo_client()
+    return(_avis_collection.insert_one({
+        "id_restaurant": restaurant_id,
+        "user": user_id,
+        "note": note,
+        "commentaire": commentaire
+    }))
 
 
 #DELETE
-def delete_avis(_, info, _id):
+def delete_avis(_, info):
     pass
