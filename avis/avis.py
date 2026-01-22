@@ -8,6 +8,7 @@ mutation = MutationType()
 avis = ObjectType("Avis")
 
 query.set_field("allAvis", r.get_all_avis)
+query.set_field("avisByID", r.get_avis_by_id)
 query.set_field("avisByRestaurant", r.get_avis_by_restaurant)
 query.set_field("avisByUser", r.get_avis_by_user)
 query.set_field("averageRateByRestaurant", r.get_average_rate_by_restaurant)

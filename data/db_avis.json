@@ -1,9 +1,19 @@
-[
-    {
-        "user": "alice@example.com",
-        "restaurant": "O Crepuscule",
-        "id_restaurant": 56,
-        "note": 5,
-        "commentaire": "Excellent !"
-    }
-]
+[{
+  "_id": {
+    "$oid": "6970d9b09bd18f704d34c545"
+  },
+  "user": "Arthur",
+  "id_restaurant": "20180eb551883012e8d49bfa058af2c9bbc24217",
+  "note": 5,
+  "commentaire": "Excellent !",
+  "nom_restaurant": "BRASSERIE DES VOYAGEURS"
+},
+{
+  "_id": {
+    "$oid": "697108b9a107f7026141f6d7"
+  },
+  "id_restaurant": "20180eb551883012e8d49bfa058af2c9bbc24217",
+  "user": "Célie",
+  "note": 4.2,
+  "commentaire": "Super cool !"
+}]

@@ -1,5 +1,6 @@
 import os
 import grpc
+import restaurant_pb2
 import restaurant_pb2_grpc
 
 
@@ -18,3 +19,6 @@ def get_restaurant_client():
     url = _get_restaurant_url()
     channel = grpc.insecure_channel(url)
     return restaurant_pb2_grpc.RestaurantServiceStub(channel)
+
+def createQueryRequest(query: str):
+    return restaurant_pb2.SearchRequest(query=query)

@@ -1,6 +1,7 @@
 type Query
 {
     allAvis: [Avis]
+    avisByID(id_avis:String!):Avis
     avisByRestaurant(restaurant_id: String!): [Avis]
     avisByUser(user_id: String!): [Avis]   
     averageRateByRestaurant(restaurant_id: String!): Float
