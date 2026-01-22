@@ -81,6 +81,9 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
                 results.append(r)
         return results
 
+    def SearchAll(self, context):
+        return restaurant_pb2.RestaurantList(restaurants=self.cache)
+
     def SearchByName(self, request, context):
         results = self._filter_by_query(self.cache, request.query)
         
