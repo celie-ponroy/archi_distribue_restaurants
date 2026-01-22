@@ -3,8 +3,8 @@ syntax = "proto3";
 package restaurant;
 
 service RestaurantService {
+  rpc SearchById (IdRequest) returns (RestaurantList);
   rpc SearchByName (SearchRequest) returns (RestaurantList);
-  
   rpc SearchByType (TypeRequest) returns (RestaurantList);
   rpc SearchByCategorie (CategorieRequest) returns (RestaurantList);
   rpc SearchByLocation (LocationRequest) returns (RestaurantList);
@@ -47,6 +47,10 @@ message Restaurant {
 message RestaurantList {
   repeated Restaurant restaurants = 1;
   string error_message = 2;
+}
+
+message IdRequest {
+  string id = 1;
 }
 
 message SearchRequest {
