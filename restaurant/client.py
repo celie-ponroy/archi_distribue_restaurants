@@ -6,7 +6,6 @@ def print_separator(title):
     print(f"\n{'='*20} {title} {'='*20}")
 
 def run_full_audit():
-    # Connexion au serveur sur le port 50051
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = restaurant_pb2_grpc.RestaurantServiceStub(channel)
 
@@ -16,9 +15,9 @@ def run_full_audit():
             req = restaurant_pb2.SearchRequest(query=q)
             resp = stub.SearchByName(req)
             if resp.restaurants:
-                print(f"✅ Requête '{q}' : {len(resp.restaurants)} trouvé(s). Exemple : {resp.restaurants[0].name}")
+                print(f"Requête '{q}' : {len(resp.restaurants)} trouvé(s). Exemple : {resp.restaurants[0].name}")
             else:
-                print(f"❌ Requête '{q}' : {resp.error_message}")
+                print(f"Requête '{q}' : {resp.error_message}")
 
         print_separator("TEST 2 : TYPE DE RESTAURANT")
         for i in range(1, 7):
@@ -54,7 +53,7 @@ def run_full_audit():
         print(f"Restaurants avec maximum 2 salles : {len(resp_salles.restaurants)}")
 
         print_separator("TEST 7 : SERVICES ET STATUT")
-        req_animaux = restaurant_pb2.StatusRequest(ouvert="oui") # Test d'ouverture
+        req_animaux = restaurant_pb2.StatusRequest(ouvert="oui")
         resp_animaux = stub.SearchByStatus(req_animaux)
         print(f"Restaurants ouverts toute l'année : {len(resp_animaux.restaurants)}")
 
@@ -67,7 +66,7 @@ def run_full_audit():
             print(f"Type                : {r.type_offre}")
             print(f"Catégorie           : {r.categorie}")
             print(f"Animaux autorisés ? : {r.animal_accepte}")
-            print(f"Téléphone fixe    : {r.tel_fixe}")
+            print(f"Téléphone fixe      : {r.tel_fixe}")
             print(f"Email               : {r.email}")
             print(f"Site web            : {r.site_web}")
 
@@ -76,23 +75,8 @@ def run_full_audit():
         resp_comb = stub.SearchByCategorie(req_comb)
         print(f"Auberges en cuisine traditionnelle : {len(resp_comb.restaurants)}")
 
-        print_separator("TEST 10 : VÉRIFICATION SEARCH_BY_ID")
-        if resp_cp.restaurants:
-            id_a_tester = resp_cp.restaurants[0].id
-            print(f"Tentative de récupération de l'ID : {id_a_tester}")
-            
-            # Appel de la méthode spécifique
-            req_id = restaurant_pb2.IdRequest(id=id_a_tester)
-            resp_id = stub.SearchById(req_id)
-            
-            if resp_id.restaurants:
-                r_final = resp_id.restaurants[0]
-                print(f"✅ Succès ! Restaurant récupéré par ID : {r_final.name}")
-            else:
-                print(f"❌ Échec : {resp_id.error_message}")
-
 if __name__ == '__main__':
     try:
         run_full_audit()
     except grpc.RpcError as e:
-        print(f"❌ Erreur RPC : {e.code()} - {e.details()}")
+        print(f"Erreur RPC : {e.code()} - {e.details()}")

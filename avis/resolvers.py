@@ -62,7 +62,7 @@ def update_avis(_,info, id, note,commentaire):
 def create_avis(_,info, restaurant_id, user_id, note, commentaire=None):
     #si le restaurant existe 
     
-    if(len(get_restaurant_client().SearchByName(createQueryRequest(query=restaurant_id)).restaurants) > 0): #ne fonctionne pas :(
+    if(len(get_restaurant_client().SearchById(createQueryRequest(query=restaurant_id)).restaurants) > 0): #ne fonctionne pas :(
 
         _avis_collection = _get_mongo_client()
 

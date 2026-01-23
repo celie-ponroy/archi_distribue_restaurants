@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import restaurant_pb2 as restaurant__pb2
+import restaurant_pb2 as restaurant_dot_restaurant__pb2
 
 GRPC_GENERATED_VERSION = '1.76.0'
 GRPC_VERSION = grpc.__version__
@@ -18,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in restaurant_pb2_grpc.py depends on'
+        + ' but the generated code in restaurant/restaurant_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -41,38 +41,38 @@ class RestaurantServiceStub(object):
                 _registered_method=True)
         self.SearchByName = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByName',
-                request_serializer=restaurant__pb2.SearchRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
         self.SearchByType = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByType',
-                request_serializer=restaurant__pb2.TypeRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.TypeRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
         self.SearchByCategorie = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByCategorie',
-                request_serializer=restaurant__pb2.CategorieRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.CategorieRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
         self.SearchByLocation = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByLocation',
-                request_serializer=restaurant__pb2.LocationRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.LocationRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
         self.SearchByContact = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByContact',
-                request_serializer=restaurant__pb2.ContactRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.ContactRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
         self.SearchByCapacity = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByCapacity',
-                request_serializer=restaurant__pb2.CapacityRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.CapacityRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
         self.SearchByStatus = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByStatus',
-                request_serializer=restaurant__pb2.StatusRequest.SerializeToString,
-                response_deserializer=restaurant__pb2.RestaurantList.FromString,
+                request_serializer=restaurant_dot_restaurant__pb2.StatusRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
                 _registered_method=True)
 
 
@@ -137,38 +137,38 @@ def add_RestaurantServiceServicer_to_server(servicer, server):
             ),
             'SearchByName': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByName,
-                    request_deserializer=restaurant__pb2.SearchRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.SearchRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
             'SearchByType': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByType,
-                    request_deserializer=restaurant__pb2.TypeRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.TypeRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
             'SearchByCategorie': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByCategorie,
-                    request_deserializer=restaurant__pb2.CategorieRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.CategorieRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
             'SearchByLocation': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByLocation,
-                    request_deserializer=restaurant__pb2.LocationRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.LocationRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
             'SearchByContact': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByContact,
-                    request_deserializer=restaurant__pb2.ContactRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.ContactRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
             'SearchByCapacity': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByCapacity,
-                    request_deserializer=restaurant__pb2.CapacityRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.CapacityRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
             'SearchByStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByStatus,
-                    request_deserializer=restaurant__pb2.StatusRequest.FromString,
-                    response_serializer=restaurant__pb2.RestaurantList.SerializeToString,
+                    request_deserializer=restaurant_dot_restaurant__pb2.StatusRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -223,8 +223,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByName',
-            restaurant__pb2.SearchRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -250,8 +250,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByType',
-            restaurant__pb2.TypeRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.TypeRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -277,8 +277,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByCategorie',
-            restaurant__pb2.CategorieRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.CategorieRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -304,8 +304,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByLocation',
-            restaurant__pb2.LocationRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.LocationRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -331,8 +331,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByContact',
-            restaurant__pb2.ContactRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.ContactRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -358,8 +358,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByCapacity',
-            restaurant__pb2.CapacityRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.CapacityRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,
@@ -385,8 +385,8 @@ class RestaurantService(object):
             request,
             target,
             '/restaurant.RestaurantService/SearchByStatus',
-            restaurant__pb2.StatusRequest.SerializeToString,
-            restaurant__pb2.RestaurantList.FromString,
+            restaurant_dot_restaurant__pb2.StatusRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
             options,
             channel_credentials,
             insecure,

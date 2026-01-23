@@ -162,7 +162,7 @@ def serve():
     restaurant_pb2_grpc.add_RestaurantServiceServicer_to_server(RestaurantService(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
-    print("🚀 Serveur démarré sur le port 50051")
+    print("Serveur démarré sur le port 50051")
     server.wait_for_termination()
 
 if __name__ == '__main__':
