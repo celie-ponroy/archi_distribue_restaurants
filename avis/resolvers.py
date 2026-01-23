@@ -104,7 +104,6 @@ def update_avis(_,info, id_avis, note,commentaire):
     # Récupère l'avis pour obtenir le user qui l'a créé
     _avis_collection = _get_mongo_client()
     avis = _avis_collection.find_one({"_id":ObjectId(id_avis)})
-    
     if not avis:
         raise Exception("Avis non trouvé")
     
@@ -123,7 +122,7 @@ def update_avis(_,info, id_avis, note,commentaire):
 def create_avis(_,info, restaurant_id, user_id, note, commentaire=None):
     #si le restaurant existe 
     if(_verify_token_is_user(info, user_id)):
-        if(len(get_restaurant_client().SearchByName(createQueryRequest(query=restaurant_id)).restaurants) > 0): #ne fonctionne pas :(
+        if(len(get_restaurant_client().SearchById(createQueryRequest(query=restaurant_id)).restaurants) > 0): 
 
             _avis_collection = _get_mongo_client()
 

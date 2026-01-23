@@ -34,6 +34,11 @@ class RestaurantServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.SearchById = channel.unary_unary(
+                '/restaurant.RestaurantService/SearchById',
+                request_serializer=restaurant_dot_restaurant__pb2.IdRequest.SerializeToString,
+                response_deserializer=restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+                _registered_method=True)
         self.SearchByName = channel.unary_unary(
                 '/restaurant.RestaurantService/SearchByName',
                 request_serializer=restaurant_dot_restaurant__pb2.SearchRequest.SerializeToString,
@@ -73,6 +78,12 @@ class RestaurantServiceStub(object):
 
 class RestaurantServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def SearchById(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def SearchByName(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -119,6 +130,11 @@ class RestaurantServiceServicer(object):
 
 def add_RestaurantServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'SearchById': grpc.unary_unary_rpc_method_handler(
+                    servicer.SearchById,
+                    request_deserializer=restaurant_dot_restaurant__pb2.IdRequest.FromString,
+                    response_serializer=restaurant_dot_restaurant__pb2.RestaurantList.SerializeToString,
+            ),
             'SearchByName': grpc.unary_unary_rpc_method_handler(
                     servicer.SearchByName,
                     request_deserializer=restaurant_dot_restaurant__pb2.SearchRequest.FromString,
@@ -164,6 +180,33 @@ def add_RestaurantServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class RestaurantService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def SearchById(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/restaurant.RestaurantService/SearchById',
+            restaurant_dot_restaurant__pb2.IdRequest.SerializeToString,
+            restaurant_dot_restaurant__pb2.RestaurantList.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def SearchByName(request,
