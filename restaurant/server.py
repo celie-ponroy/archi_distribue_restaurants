@@ -85,11 +85,14 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
         return restaurant_pb2.RestaurantList(restaurants=self.cache)
 
     def SearchById(self, request, context):
-        result = next((r for r in self.cache if r.id == request.id), None)
+        target_id = request.id.strip()
+        
+        result = next((r for r in self.cache if r.id == target_id), None)
         
         if not result:
             return restaurant_pb2.RestaurantList(
-                error_message=f"Aucun restaurant trouvé avec l'identifiant '{request.id}'." )
+                error_message=f"Aucun restaurant trouvé avec l'identifiant '{target_id}'." 
+            )
         
         return restaurant_pb2.RestaurantList(restaurants=[result])
 

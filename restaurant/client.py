@@ -76,6 +76,21 @@ def run_full_audit():
         resp_comb = stub.SearchByCategorie(req_comb)
         print(f"Auberges en cuisine traditionnelle : {len(resp_comb.restaurants)}")
 
+        print_separator("TEST 10 : VÉRIFICATION SEARCH_BY_ID")
+        if resp_cp.restaurants:
+            id_a_tester = resp_cp.restaurants[0].id
+            print(f"Tentative de récupération de l'ID : {id_a_tester}")
+            
+            # Appel de la méthode spécifique
+            req_id = restaurant_pb2.IdRequest(id=id_a_tester)
+            resp_id = stub.SearchById(req_id)
+            
+            if resp_id.restaurants:
+                r_final = resp_id.restaurants[0]
+                print(f"✅ Succès ! Restaurant récupéré par ID : {r_final.name}")
+            else:
+                print(f"❌ Échec : {resp_id.error_message}")
+
 if __name__ == '__main__':
     try:
         run_full_audit()
