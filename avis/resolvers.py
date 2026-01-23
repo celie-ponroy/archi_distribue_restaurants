@@ -21,8 +21,6 @@ def _get_mongo_client():
     return _avis_collection
 
 
-
-# restaurants proxy
 # user proxy
 USER_URL = "http://web"
 
