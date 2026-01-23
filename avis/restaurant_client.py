@@ -20,5 +20,5 @@ def get_restaurant_client():
     channel = grpc.insecure_channel(url)
     return restaurant_pb2_grpc.RestaurantServiceStub(channel)
 
-def createQueryRequest(query: str):
-    return restaurant_pb2.SearchRequest(query=query)
+def createQueryRequest(id: str):
+    return restaurant_pb2.IdRequest(id=id)

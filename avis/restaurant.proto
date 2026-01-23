@@ -54,7 +54,7 @@ message IdRequest {
 }
 
 message SearchRequest {
-  string name = 1; 
+  string id = 1; 
 }
 
 message TypeRequest {
