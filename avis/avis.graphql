@@ -10,7 +10,7 @@ type Mutation
 {
     update_avis(id_avis: String!, note: Float!, commentaire:String!): Avis
     create_avis(restaurant_id: String!, user_id: String!, commentaire: String, note: Float!): Avis
-    delete_avis(id: String!): Avis
+    delete_avis(id: String!): String
 }
 
 type Avis{
