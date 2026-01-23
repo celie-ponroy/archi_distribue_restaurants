@@ -37,7 +37,6 @@ function createUser($conn, $login, $mdp_hache) {
 }
 
 function getUser($conn, $login) {
-    // Récupère le document utilisateur { login, mdp, ... } depuis la collection `utilisateurs`
     $manager = $conn['manager'];
     $db = $conn['db'];
 
@@ -99,4 +98,18 @@ function create_user($conn, $login, $mdp_hache) {
     } catch (Exception $e) {
         return false;
     }
+}
+
+function verify_token($token){
+    if (!$token && isset($_GET['token'])) {
+        return $token = $_GET['token'] === 'null' ? null : $_GET['token'];
+    }
+
+    if(!$token){
+        deliver_response(401, "Vous n'avez pas fourni de token");
+        exit;
+    }
+
+    return $token;
+
 }

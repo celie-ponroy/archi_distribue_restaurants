@@ -8,24 +8,90 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 switch ($method) {
     case 'GET' :
-        // Vérifie la présence du token JWT
-        if(!get_bearer_token()){
-            deliver_response(401, "Vous n'avez pas fourni de token");
-            exit;
-        }
+        // Vérifie si on demande la correspondance token/login
+        if (isset($_GET['verify_login'])) {
+            // Récupère le token soit dans l'en-tête Authorization, soit en query param "token"
+            $token = get_bearer_token();
+            
 
-        // secret configurable via variable d'environnement
-        $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
-        $token = get_bearer_token();
+            if(!isset($_GET['login'])){
+                deliver_response(400, "Login manquant");
+                exit;
+            }
 
-        // Vérifie la validité du token
-        if (is_jwt_valid($token, $secret)) {
-            deliver_response(200, 'Token valide.');
+            $login_to_verify = $_GET['login'];
+
+            // secret configurable via variable d'environnement
+            $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
+
+            // Vérifie la validité du token
+            if (!is_jwt_valid($token, $secret)) {
+                deliver_response(401, 'Token invalide.');
+                exit;
+            }
+
+            // Décode le payload pour récupérer le login du token
+            $payload = decode_jwt_payload($token);
+            if ($payload && isset($payload['login'])) {
+                $matches = $payload['login'] === $login_to_verify;
+                if(!$matches){
+                    deliver_response(403, 'Le login ne correspond pas au token.', ['matches' => $matches]);
+                }else{
+                    deliver_response(200, 'OK', ['matches' => $matches]);
+                }
+            } else {
+                deliver_response(400, 'Token invalide ou sans login');
+            }
+        } // Vérifie si on demande le statut admin via query param
+        elseif (isset($_GET['check_admin'])) {
+            // Vérifie la présence du token JWT
+                // Récupère le token soit dans l'en-tête Authorization, soit en query param "token"
+                $token = get_bearer_token();
+                if (!$token && isset($_GET['token'])) {
+                    $token = $_GET['token'] === 'null' ? null : $_GET['token'];
+                }
+
+                if(!$token){
+                    deliver_response(401, "Vous n'avez pas fourni de token");
+                    exit;
+                }
+            
+                // secret configurable via variable d'environnement
+                $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
+
+            // Vérifie la validité du token
+            if (!is_jwt_valid($token, $secret)) {
+                deliver_response(401, 'Token invalide.');
+                exit;
+            }
+
+            // Décode le payload pour récupérer le statut admin
+            $payload = decode_jwt_payload($token);
+            if ($payload && isset($payload['admin'])) {
+                deliver_response(200, 'OK', ['is_admin' => (bool)$payload['admin']]);
+            } else {
+                deliver_response(200, 'OK', ['is_admin' => false]);
+            }
         } else {
-            deliver_response(401, 'Token invalide.');
+            // Route GET normale : vérification de validité du token
+            // Vérifie la présence du token JWT
+            if(!get_bearer_token()){
+                deliver_response(401, "Vous n'avez pas fourni de token");
+                exit;
+            }
+            
+            // secret configurable via variable d'environnement
+            $secret = getenv('JWT_SECRET') ?: 'coucou_je_suis_secret';
+            $token = get_bearer_token();
+
+            // Vérifie la validité du token
+            if (is_jwt_valid($token, $secret)) {
+                deliver_response(200, 'Token valide.');
+            } else {
+                deliver_response(401, 'Token invalide.');
+            }
         }
         break;
-    
     case 'POST':
         // Vérifie les identifiants et génère un JWT si valides
         if (isset($input['login']) && isset($input['mdp'])) {
