@@ -84,6 +84,18 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
     def SearchAll(self, context):
         return restaurant_pb2.RestaurantList(restaurants=self.cache)
 
+    def SearchById(self, request, context):
+        target_id = request.id.strip()
+        
+        result = next((r for r in self.cache if r.id == target_id), None)
+        
+        if not result:
+            return restaurant_pb2.RestaurantList(
+                error_message=f"Aucun restaurant trouvé avec l'identifiant '{target_id}'." 
+            )
+        
+        return restaurant_pb2.RestaurantList(restaurants=[result])
+
     def SearchByName(self, request, context):
         results = self._filter_by_query(self.cache, request.query)
         
@@ -150,7 +162,7 @@ def serve():
     restaurant_pb2_grpc.add_RestaurantServiceServicer_to_server(RestaurantService(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
-    print("🚀 Serveur démarré sur le port 50051")
+    print("Serveur démarré sur le port 50051")
     server.wait_for_termination()
 
 if __name__ == '__main__':
