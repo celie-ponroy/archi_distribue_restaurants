@@ -97,15 +97,15 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
         return restaurant_pb2.RestaurantList(restaurants=[result])
 
     def SearchByName(self, request, context):
-        results = self._filter_by_query(self.cache, request.query)
+        results = self._filter_by_query(self.cache, request.name)
         
         if not results:
-            return restaurant_pb2.RestaurantList(error_message=f"Aucun restaurant trouvé pour '{request.query}'.")
+            return restaurant_pb2.RestaurantList(error_message=f"Aucun restaurant trouvé pour '{request.name}'.")
         
         return restaurant_pb2.RestaurantList(restaurants=results)
 
     def SearchByType(self, request, context):
-        filtered = self._filter_by_query(self.cache, request.query)
+        filtered = self._filter_by_query(self.cache, request.type)
         
         if request.type_index == 6:
             res = [
@@ -121,7 +121,7 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
         return restaurant_pb2.RestaurantList(restaurants=res)
 
     def SearchByCategorie(self, request, context):
-        filtered = self._filter_by_query(self.cache, request.query)
+        filtered = self._filter_by_query(self.cache, request.category)
         
         if request.cat_index == 17:
             res = [r for r in filtered if not r.categorie.strip() or "aucune information" in r.categorie.lower()]
@@ -135,24 +135,49 @@ class RestaurantService(restaurant_pb2_grpc.RestaurantServiceServicer):
         val = request.value.lower()
         res = [r for r in self.cache if val in r.code_postal or val in r.commune.lower() or val in r.departement.lower()]
         return restaurant_pb2.RestaurantList(restaurants=res)
-
+    
     def SearchByContact(self, request, context):
-        filtered = self._filter_by_query(self.cache, request.query)
         val = request.value.lower()
-        attr_map = {"mobile": "tel_mobile", "fixe": "tel_fixe", "fax": "fax", "email": "email"}
-        attr = attr_map.get(request.field_type, "email")
-        res = [r for r in filtered if val in getattr(r, attr).lower()]
+        attr_map = {
+            "mobile": "tel_mobile", 
+            "fixe": "tel_fixe", 
+            "fax": "fax", 
+            "email": "email"
+        }
+        attr = attr_map.get(request.field_type.lower(), "email")
+        
+        res = []
+        for r in self.cache:
+            field_value = getattr(r, attr, "")
+            if val in field_value.lower():
+                res.append(r)
+                
         return restaurant_pb2.RestaurantList(restaurants=res)
-
+    
     def SearchByCapacity(self, request, context):
-        filtered = self._filter_by_query(self.cache, request.query)
-        attr_map = {"couverts": "nb_max_couverts", "salles": "nb_salles", "terrasse": "nb_terrasse", "reunion": "nb_reunion", "clim": "nb_climatisees"}
-        attr = attr_map.get(request.field_type, "nb_max_couverts")
-        res = [r for r in filtered if (request.search_min and getattr(r, attr) >= request.value) or (not request.search_min and getattr(r, attr) <= request.value)]
+        attr_map = {
+            "couverts": "nb_max_couverts", 
+            "salles": "nb_salles", 
+            "terrasse": "nb_terrasse", 
+            "reunion": "nb_reunion", 
+            "clim": "nb_climatisees"
+        }
+        attr = attr_map.get(request.field_type.lower(), "nb_max_couverts")
+        
+        res = []
+        for r in self.cache:
+            current_val = getattr(r, attr, 0)
+
+            if request.search_min:
+                if current_val >= request.value:
+                    res.append(r)
+            else:
+                if current_val <= request.value:
+                    res.append(r)
         return restaurant_pb2.RestaurantList(restaurants=res)
 
     def SearchByStatus(self, request, context):
-        filtered = self._filter_by_query(self.cache, request.query)
+        filtered = self._filter_by_query(self.cache, request.value)
         val = request.ouvert.lower()
         res = [r for r in filtered if val in r.ouvert_annee.lower()]
         return restaurant_pb2.RestaurantList(restaurants=res)

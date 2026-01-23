@@ -58,11 +58,13 @@ message SearchRequest {
 }
 
 message TypeRequest {
-  string type = 2;
+  string type = 1;
+  int32 type_index = 2;
 }
 
 message CategorieRequest {
   string category = 2;
+  int32 cat_index = 3;
 }
 
 message LocationRequest {
@@ -71,13 +73,16 @@ message LocationRequest {
 
 message ContactRequest {
   string value = 1;
+  string field_type = 2;
 }
 
 message CapacityRequest {
   int32 value = 1;
   bool search_min = 2; 
+  string field_type = 3;
 }
 
 message StatusRequest {
-  string ouvert = 1; 
+  string value = 1; 
+  string ouvert = 2;
 }
